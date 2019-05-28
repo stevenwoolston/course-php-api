@@ -1,0 +1,46 @@
+RewriteEngine On # Turn on the rewriting engine
+
+# ALLOW ONLY NECESSARY REQUEST METHODS
+#RewriteCond %{REQUEST_METHOD} (GET|HEAD|OPTIONS|POST|PUT|DELETE) [NC]
+#RewriteRule .* - [F,L]
+
+RewriteCond %{REQUEST_METHOD} GET [NC]
+RewriteRule ^customers$ customer.php [NC]
+RewriteRule ^customers/([0-9]+)$ customer.php?id=$1 [NC]
+
+RewriteRule ^customers/([0-9]+)/contacts$ customer_contact.php?customerid=$1 [NC]
+RewriteRule ^contacts/([0-9]+)$ customer_contact.php?id=$1 [NC]
+
+RewriteRule ^customers/([0-9]+)/invoices$ invoice.php?customerid=$1 [NC]
+RewriteRule ^invoices/([0-9]+)$ invoice.php?id=$1 [NC]
+
+RewriteRule ^invoices/([0-9]+)/invoiceitems$ invoice_item.php?invoiceid=$1 [NC]
+RewriteRule ^invoiceitems/([0-9]+)$ invoice_item.php?id=$1 [NC]
+
+RewriteRule ^invoices/([0-9]+)/payments$ payment.php?invoiceid=$1 [NC]
+RewriteRule ^payments/([0-9]+)$ payment.php?id=$1 [NC]
+
+RewriteRule ^invoices/([0-9]+)/deliveries$ delivery.php?invoiceid=$1 [NC]
+RewriteRule ^deliveries/([0-9]+)$ delivery.php?id=$1 [NC]
+
+RewriteRule ^invoices/sendinvoice$ send_invoice.php?id=$1 [NC,L]
+
+# Multi request method routing
+RewriteCond %{REQUEST_METHOD} (HEAD|OPTIONS|POST|PUT|DELETE) [NC]
+RewriteRule ^customer$ customer.php [NC]
+RewriteRule ^customer/([0-9]+)$ customer.php?id=$1 [NC]
+
+RewriteRule ^contact$ customer_contact.php [NC]
+RewriteRule ^contact/([0-9]+)$ customer_contact.php?id=$1 [NC]
+
+RewriteRule ^invoice$ invoice.php [NC]
+RewriteRule ^invoice/([0-9]+)$ invoice.php?id=$1 [NC]
+
+RewriteRule ^invoiceitem$ invoice_item.php [NC]
+RewriteRule ^invoiceitem/([0-9]+)$ invoice_item.php?id=$1 [NC]
+
+RewriteRule ^delivery$ delivery.php [NC]
+RewriteRule ^delivery/([0-9]+)$ delivery.php?id=$1 [NC]
+
+RewriteRule ^payment$ payment.php [NC]
+RewriteRule ^payment/([0-9]+)$ payment.php?id=$1 [N,L]
